@@ -398,7 +398,7 @@ mod tests {
     #[test]
     fn an_empty_view_releases_the_previous_image_and_screenshot() {
         let context = egui::Context::default();
-        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::default());
+        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::english());
         let mut peak_screenshot_bytes = 0;
 
         for index in 0..8 {
@@ -423,7 +423,7 @@ mod tests {
     fn distinct_images_release_the_previous_texture_and_bound_the_screenshot_buffer() {
         let context = egui::Context::default();
         context.begin_pass(egui::RawInput { max_texture_side: Some(1024), ..Default::default() });
-        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::default());
+        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::english());
         let mut previous_texture = None;
         let mut peak_retained_screenshot_bytes = 0;
 

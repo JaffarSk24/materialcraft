@@ -198,7 +198,7 @@ mod tests {
 
     #[test]
     fn instance_properties_show_current_source_values_and_local_overrides() {
-        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::default());
+        let mut app = MaterialCraftApp::headless(materialcraft_engine::new_session(), crate::UiState::english());
         app.session.graph_mut().unwrap().name = "Source".into();
         app.run("graph.node.add", json!({"def": "output"})).unwrap();
         app.run("graph.exposed.add", json!({"id": "amount", "label": "Amount", "default": 0.25})).unwrap();

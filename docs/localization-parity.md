@@ -1,6 +1,6 @@
 # Localization parity
 
-> **Last reviewed:** 2026-11-02 · **Last updated:** 2026-11-19 · **Change:** minor (Russian interface); previously major (first version) · **Target:** the professional node-based material workflow
+> **Last reviewed:** 2026-11-02 · **Last updated:** 2026-11-20 · **Change:** minor (Russian interface); previously major (first version) · **Target:** the professional node-based material workflow
 
 Every interface string goes through `crate::i18n::tr` (or is marked with `n_` where it is stored),
 so catalogs can be added without touching callers. Today only English ships.
@@ -17,6 +17,6 @@ so catalogs can be added without touching callers. Today only English ships.
 
 | Date | Change | Summary |
 |---|---|---|
-| 2026-11-19 | minor | Add Russian (`ru`) UI localization |
+| 2026-11-20 | minor | Add Russian (`ru`) UI localization, including labels that reach `tr` from catalogs and enums (menus, node parameters, library categories, 3D view options, updater dialog); `trc` for words with two meanings; tests pinned to English with `UiState::english()` |
 | 2026-11-03 | minor | Add complete Arabic (`ar`) UI localization and font fallbacks |
 | 2026-11-02 | major | First version |
