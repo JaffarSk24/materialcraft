@@ -9,6 +9,7 @@ use std::sync::OnceLock;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 mod ar;
+mod ru;
 
 pub struct Language {
     /// BCP 47 code ("en", "ar").
@@ -21,10 +22,13 @@ pub struct Language {
     pub table: &'static [(&'static str, &'static str)],
 }
 
-const COUNT: usize = 2;
+const COUNT: usize = 3;
 
-pub static LANGUAGES: [Language; COUNT] =
-    [Language { code: "en", name: "English", english: "English", table: &[] }, Language { code: "ar", name: "العربية", english: "Arabic", table: ar::TABLE }];
+pub static LANGUAGES: [Language; COUNT] = [
+    Language { code: "en", name: "English", english: "English", table: &[] },
+    Language { code: "ar", name: "العربية", english: "Arabic", table: ar::TABLE },
+    Language { code: "ru", name: "Русский", english: "Russian", table: ru::TABLE },
+];
 
 static MAPS: [OnceLock<HashMap<&'static str, &'static str>>; COUNT] = [const { OnceLock::new() }; COUNT];
 static CURRENT: AtomicUsize = AtomicUsize::new(0);
@@ -88,7 +92,7 @@ pub fn trf(template: &str, args: &[(&str, &dyn Display)]) -> String {
     out
 }
 
-/// The supported language for a locale such as "ar-EG", "ar-SA" ("en" when none matches).
+/// The supported language for a locale such as "ar-EG", "ar-SA" or "ru-RU" ("en" when none matches).
 pub fn language_for_locale(locale: &str) -> &'static str {
     let lang = locale.split(['-', '_', '.', '@']).next().unwrap_or("").to_ascii_lowercase();
     match lang.as_str() {
@@ -116,6 +120,8 @@ mod tests {
         assert_eq!(language_for_locale("ar-EG"), "ar");
         assert_eq!(language_for_locale("ar_SA.UTF-8"), "ar");
         assert_eq!(language_for_locale("en-US"), "en");
+        assert_eq!(language_for_locale("ru-RU"), "ru");
+        assert_eq!(language_for_locale("ru_SK.UTF-8"), "ru");
         assert_eq!(language_for_locale("fr-FR"), "en");
     }
 
@@ -124,6 +130,25 @@ mod tests {
         let mut seen = std::collections::HashSet::new();
         for (k, _) in ar::TABLE {
             assert!(seen.insert(*k), "duplicate key in ar::TABLE: {k:?}");
+        }
+    }
+
+    #[test]
+    fn russian_table_has_no_duplicate_keys() {
+        let mut seen = std::collections::HashSet::new();
+        for (k, _) in ru::TABLE {
+            assert!(seen.insert(*k), "duplicate key in ru::TABLE: {k:?}");
+        }
+    }
+
+    #[test]
+    fn placeholders_match_between_key_and_russian_translation() {
+        for (k, v) in ru::TABLE {
+            let mut kp: Vec<&str> = k.split('{').skip(1).filter_map(|s| s.split_once('}').map(|(p, _)| p)).collect();
+            let mut vp: Vec<&str> = v.split('{').skip(1).filter_map(|s| s.split_once('}').map(|(p, _)| p)).collect();
+            kp.sort();
+            vp.sort();
+            assert_eq!(kp, vp, "mismatched placeholders in {k:?} vs {v:?}");
         }
     }
 
