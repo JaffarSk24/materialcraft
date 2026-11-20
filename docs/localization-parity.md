@@ -17,6 +17,6 @@ so catalogs can be added without touching callers. Today only English ships.
 
 | Date | Change | Summary |
 |---|---|---|
-| 2026-11-20 | minor | Add Russian (`ru`) UI localization, including labels that reach `tr` from catalogs and enums (menus, node parameters, library categories, 3D view options, updater dialog); `trc` for words with two meanings; tests pinned to English with `UiState::english()` |
+| 2026-11-20 | minor | Add Russian (`ru`) UI localization, including labels that reach `tr` from catalogs and enums (menus, node parameters, library categories, 3D view options, updater dialog), and labels the code drew without `tr` (base parameters, function nodes and ports, node descriptions, counts and size lines); `trc` for words with two meanings; tests pinned to English with `UiState::english()` |
 | 2026-11-03 | minor | Add complete Arabic (`ar`) UI localization and font fallbacks |
 | 2026-11-02 | major | First version |
