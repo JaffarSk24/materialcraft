@@ -115,7 +115,10 @@ pub(super) fn show(app: &mut MaterialCraftApp, ui: &mut Ui, shown: Option<&Shown
 /// The size, kind and bit depth of the image, on a dark backing so it reads over any image
 fn size_line(painter: &Painter, rect: Rect, shown: &Shown, color: Color32) {
     let kind = if shown.image.is_gray() { tr("Grayscale") } else { "RGBA" };
-    let line = format!("{} x {} ({kind}, {}bpc)", shown.image.width(), shown.image.height(), shown.bits);
+    let line = crate::i18n::trf(
+        "{width} x {height} ({kind}, {bits}bpc)",
+        &[("width", &shown.image.width()), ("height", &shown.image.height()), ("kind", &kind), ("bits", &shown.bits)],
+    );
     let text = painter.layout_no_wrap(line, egui::FontId::proportional(SIZE_LINE_TEXT), color);
     let corner = rect.left_bottom() + vec2(SIZE_LINE_MARGIN, -SIZE_LINE_MARGIN - text.size().y);
 

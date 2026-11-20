@@ -97,7 +97,7 @@ fn show_target(app: &mut MaterialCraftApp, ui: &mut Ui, target: materialcraft_en
             let label = format!(
                 "{}  {} | {}",
                 icon::SIGN_OUT,
-                materialcraft_engine::core::ComponentUsage::from_index(usage as u32).label,
+                tr(materialcraft_engine::core::ComponentUsage::from_index(usage as u32).label),
                 materialcraft_engine::eval::identifier(node)
             );
             if ui.add(egui::Button::selectable(app.session.view2d.node == Some(node.id), label)).clicked() {

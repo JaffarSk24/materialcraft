@@ -66,7 +66,7 @@ fn color_space_menu(app: &mut MaterialCraftApp, ui: &mut Ui) {
 }
 
 fn scene_menu(app: &mut MaterialCraftApp, ui: &mut Ui) {
-    let response = egui::ComboBox::from_id_salt("scene3d").width(SCENE_WIDTH).selected_text(super::scene_label(app)).show_ui(ui, |ui| {
+    let response = egui::ComboBox::from_id_salt("scene3d").width(SCENE_WIDTH).selected_text(tr(&super::scene_label(app))).show_ui(ui, |ui| {
         for (id, label) in SCENES {
             if ui.selectable_label(app.session.view3d.scene == *id, tr(label)).clicked() {
                 app.run("view.3d", json!({"scene": id}));
