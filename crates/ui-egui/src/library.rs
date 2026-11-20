@@ -333,7 +333,7 @@ fn items(app: &mut MaterialCraftApp, ui: &mut Ui, entries: &[LibraryEntry], targ
             for entry in chunk {
                 let size = if as_list { vec2(ui.available_width(), 26.0) } else { tile };
                 let (rect, response) = ui.allocate_exact_size(size, Sense::click_and_drag());
-                crate::widgets::name(&response, egui::Role::ListItem, &entry.label);
+                crate::widgets::name(&response, egui::Role::ListItem, tr(&entry.label));
                 let takes = target.takes(entry);
                 let selected = app.ui.library_selected.as_deref() == Some(entry.id.as_str());
                 if selected {

@@ -36,7 +36,7 @@ fn channel_menu(app: &mut MaterialCraftApp, ui: &mut Ui) {
     let label = if alpha { "Alpha" } else { channels.label() };
     let response =
         crate::widgets::chip(ui, &format!("{} {}", tr(label), icon::CARET_DOWN), alpha || channels != ViewChannels::Rgb).on_hover_text(tr("Channels shown"));
-    crate::widgets::name(&response, egui::Role::Button, "Channels shown");
+    crate::widgets::name(&response, egui::Role::Button, tr("Channels shown"));
 
     egui::Popup::menu(&response).show(|ui| {
         for &choice in ViewChannels::ALL {
